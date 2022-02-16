@@ -1,0 +1,43 @@
+package com.example.restaurant.naver;
+
+import com.example.restaurant.naver.dto.SearchImageReq;
+import com.example.restaurant.naver.dto.SearchLocalReq;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class NaverClientTest {
+
+    @Autowired
+    private NaverClient naverClient;
+
+    @Test
+    public void localSearchTest(){
+
+        var search = new SearchLocalReq();
+        search.setQuery("백반");
+
+        var result = naverClient.localSearch(search);
+
+        System.out.println(result);
+        Assertions.assertNotNull(result.getItems().stream().findFirst().get().getCategory());
+
+
+    }
+
+    @Test
+    public void searchImageTest(){
+
+        var search = new SearchImageReq();
+        search.setQuery("백반");
+
+        var result = naverClient.imageSearch(search);
+        System.out.println(result);
+
+
+    }
+}
